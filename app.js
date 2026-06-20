@@ -352,7 +352,7 @@ login=function(){
   if(r==='cliente'){ clientCheckFromLogin(); return; }
   const pass=$('userPassword')?.value||'';
   const stored=(state.config&&state.config.passwords&&state.config.passwords[r])||'1234';
-  if(pass!==stored){ alert('Contraseña incorrecta. Clave de prueba: 1234'); return; }
+  if(pass!==stored){showToast('Credenciales inválidas') ;return; }
   $('login').classList.add('hidden'); $('app').classList.remove('hidden');
   $('currentRole').textContent='Usuario: '+(($('userName')?.value)||'')+' · Rol: '+r;
   applyRole(r); renderAll(); showPage('dashboard');
