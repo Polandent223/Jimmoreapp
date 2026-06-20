@@ -1,0 +1,22 @@
+FASE 18.4 PRO - JIMMORE MASTER ERP
+
+Cambios principales:
+- Nueva portada profesional con estilo automotriz JIMMORE.
+- Nombre del sistema cambiado a JIMMORE MASTER ERP.
+- Fondo visual con marca JIMMORE, energía, potencia y confianza.
+- Tarjetas modernas para seleccionar rol: Administrador, Ventas/POS, Taller, Almacén, Pintura y Cliente.
+- BCV visible desde la portada.
+- Fecha, hora y estado del sistema visibles.
+- Consulta de cliente mejorada por código, placa, cédula o teléfono.
+- Resumen general en portada: productos, vehículos en proceso, ventas del día, cuentas por cobrar y clientes.
+- Mantiene las mejoras de fase 18.3: eliminar solo administrador con clave, edición/bloqueo/eliminación donde aplica.
+
+Usuarios de prueba:
+admin / 1234
+vendedor / 1234
+almacen / 1234
+taller / 1234
+pintor / 1234
+
+Recomendación:
+Abrir index.html en el navegador. Para subirlo a internet gratis, usar GitHub Pages o Firebase Hosting.

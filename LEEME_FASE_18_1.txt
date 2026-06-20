@@ -1,0 +1,25 @@
+INVERSIONES JIMMORE ERP - FASE 18.1 PRO SENCILLA
+
+Esta versión vuelve al estilo más simple de las fases 16-17-18.
+
+Incluye:
+- Login sencillo por rol
+- Menú claro y completo
+- Punto de venta
+- Inventario con crear/editar productos
+- Foto de producto
+- Costo USD, venta USD, mayorista y stock
+- BCV visible y editable arriba
+- Clientes
+- Taller
+- Caja
+- Compras / proveedores
+- Comisiones
+- Notificaciones
+
+Acceso de prueba:
+Usuario: admin
+Clave: 1234
+Rol: Administrador
+
+Firebase queda para la fase final.

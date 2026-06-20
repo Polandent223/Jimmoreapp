@@ -1,0 +1,17 @@
+FASE 18.6 PRO FINAL - INVERSIONES JIMMORE 0331 C.A.
+
+Cambios principales:
+- Portada definitiva tipo automotriz premium.
+- Nombre principal: INVERSIONES JIMMORE 0331 C.A.
+- Sistema: MASTER ERP PRO.
+- Fondo completo JIMMORE integrado en la portada.
+- Se quitaron métricas de portada: productos, vehículos, ventas, clientes y cuentas por cobrar.
+- Se quitaron usuarios de prueba y claves visibles.
+- Tarjetas de roles más profesionales.
+- Consulta rápida por código, placa, cédula/RIF o teléfono.
+- BCV, fecha, hora, estado del sistema y botón de actualización visibles.
+- Pie profesional: sistema seguro, respaldos, multiusuario, actualizaciones y soporte.
+- Versión actualizada: 18.6 PRO FINAL.
+
+Uso:
+Abre index.html en el navegador. Para producción, configura Firebase desde el módulo Configuración.

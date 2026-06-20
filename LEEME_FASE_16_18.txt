@@ -1,0 +1,34 @@
+INVERSIONES JIMMORE - FASES 16, 17 Y 18 PRO
+
+Incluye:
+
+FASE 16 PRO - COMPRAS Y CUENTAS POR PAGAR
+- Registro de cuentas por pagar a proveedores.
+- Abonos a proveedores.
+- Saldo pendiente.
+- Fecha de vencimiento.
+- Exportación CSV.
+
+FASE 17 PRO - COMISIONES Y METAS
+- Regla de comisión por vendedor.
+- Meta mensual por vendedor.
+- Cálculo de comisión según ventas del usuario.
+- Vendedor ve solo su información.
+- Administrador ve todo.
+
+FASE 18 PRO - NOTIFICACIONES
+- Centro de avisos internos.
+- Aviso de stock bajo.
+- Aviso de cuentas por pagar.
+- Aviso de trabajos listos.
+- Exportación CSV.
+
+USUARIOS DE PRUEBA
+admin / 1234
+vendedor / 1234
+almacen / 1234
+taller / 1234
+pintor / 1234
+
+IMPORTANTE:
+Esta versión todavía trabaja localmente en el navegador. Firebase/GitHub se deja para el final como acordamos.
