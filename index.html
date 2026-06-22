@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inversiones Jimmore 0331 C.A. | INVERSIONES JIMMORE 0331 C.A. | MASTER ERP PRO | Fase 18.7 PRO SEGURIDAD Y RESPALDO</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="login" class="login-screen master-login">
+    <div class="hero-portada">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <img src="./assets/logo.jpg" class="master-logo" alt="Logo Inversiones Jimmore" />
+        <h1 class="visually-hidden">INVERSIONES JIMMORE 0331 C.A. MASTER ERP PRO</h1>
+      </div>
+    </div>
+
+    <div class="status-strip-login">
+      <div><b>TASA BCV</b><strong id="loginRateText">36,42 Bs / $</strong><small>Visible para todos</small></div>
+      <div><b>FECHA</b><strong id="loginDateText">--/--/----</strong><small>Actualizado hoy</small></div>
+      <div><b>HORA</b><strong id="loginTimeText">--:--</strong><small>Sistema activo</small></div>
+      <div><b>SISTEMA</b><strong>Seguro y Confiable</strong><small>Versión 18.7 PRO</small></div>
+      <button type="button" class="bcv-update-login" onclick="openBCVUpdate185()">↻ Actualizar BCV</button>
+    </div>
+
+    <div class="login-card master-card">
+      <h2><span>INVERSIONES JIMMORE 0331 C.A.</span></h2>
+      <h3 class="system-name-186">MASTER ERP PRO</h3>
+      <p class="master-subtitle">Control total de taller, aire acondicionado, latonería, pintura, inventario, facturación y clientes.</p>
+
+      <select id="roleSelect" class="hidden" onchange="selectAccessRoleFinal()">
+        <option value="admin">Administrador</option>
+        <option value="vendedor">Vendedor</option>
+        <option value="almacen">Almacén</option>
+        <option value="taller">Mecánico / Taller</option>
+        <option value="pintor">Pintor</option>
+        <option value="cliente">Cliente</option>
+      </select>
+
+      <div class="role-card-grid">
+        <button class="role-login-card active" data-login-role="admin" onclick="setMasterLoginRole('admin')"><b>🛡️ Administrador</b><small>Acceso completo</small></button>
+        <button class="role-login-card" data-login-role="vendedor" onclick="setMasterLoginRole('vendedor')"><b>💰 Ventas / POS</b><small>Facturación y clientes</small></button>
+        <button class="role-login-card" data-login-role="taller" onclick="setMasterLoginRole('taller')"><b>🔧 Taller</b><small>Reparaciones y estatus</small></button>
+        <button class="role-login-card" data-login-role="almacen" onclick="setMasterLoginRole('almacen')"><b>📦 Almacén</b><small>Inventario y productos</small></button>
+        <button class="role-login-card" data-login-role="pintor" onclick="setMasterLoginRole('pintor')"><b>🎨 Pintura</b><small>Latonería y pintura</small></button>
+        <button class="role-login-card client" data-login-role="cliente" onclick="setMasterLoginRole('cliente')"><b>👤 Cliente</b><small>Consultar vehículo</small></button>
+      </div>
+
+      <div id="staffLoginBox" class="master-login-box">
+        <input id="userName" placeholder="Usuario" autocomplete="username" />
+        <div class="password-row">
+          <input id="userPassword" type="password" placeholder="Contraseña" />
+          <button type="button" class="outline small-btn" onclick="togglePasswordFinal()">👁</button>
+        </div>
+        <button class="login-main" onclick="login()">Entrar al sistema</button>
+      </div>
+
+      <div id="clientLoginBox" class="master-client-box hidden">
+        <h3>Consulta para clientes</h3>
+        <p>Busca la información de tu vehículo, trabajo, presupuesto o reparación.</p>
+        <div class="client-search-row">
+          <select id="loginClientSearchType">
+            <option value="codigo">Código</option>
+            <option value="placa">Placa</option>
+            <option value="cedula">Cédula</option>
+            <option value="telefono">Teléfono</option>
+          </select>
+          <input id="loginClientCode" placeholder="Código, placa, cédula o teléfono" />
+          <button onclick="clientCheckFromLoginFinal()">Consultar</button>
+        </div>
+        <small>Ejemplo: JM-12345, ABC123, 12345678, 0412-1234567</small>
+      </div>
+
+      <div class="login-summary-row">
+        <div><b id="loginProductsMetric">0</b><small>Productos registrados</small></div>
+        <div><b id="loginVehiclesMetric">0</b><small>Vehículos en proceso</small></div>
+        <div><b id="loginSalesMetric">$0,00</b><small>Ventas del día</small></div>
+        <div><b id="loginReceivableMetric">0</b><small>Cuentas por cobrar</small></div>
+        <div><b id="loginClientsMetric">0</b><small>Clientes registrados</small></div>
+      </div>
+
+      <small class="phase-note">Fase 18.7 PRO SEGURIDAD Y RESPALDO: portada JIMMORE MASTER ERP, tarjetas por rol, consulta por código/placa/cédula/teléfono, BCV visible y resumen general.</small>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <img src="./assets/logo.jpg" class="side-logo" alt="Logo" />
+      <button data-page="roles" onclick="showPage('roles')">Roles</button>
+        <button data-page="dashboard" onclick="showPage('dashboard')">Panel de control</button>
+      <button data-page="pos" onclick="showPage('pos')">Punto de venta</button>
+      <button data-page="facturas" onclick="showPage('facturas')">Facturación</button>
+      <button data-page="miHistorial" onclick="showPage('miHistorial')">Mi historial</button>
+      <button data-page="inventario" onclick="showPage('inventario')">Inventario</button>
+      <button data-page="taller" onclick="showPage('taller')">Taller reparaciones</button>
+      <button data-page="clientes" onclick="showPage('clientes')">Clientes / CRM</button>
+      <button data-page="contabilidad" onclick="showPage('contabilidad')">Contabilidad</button>
+      <button data-page="compras" onclick="showPage('compras')">Compras / Proveedores</button>
+      <button data-page="cuentasPagar" onclick="showPage('cuentasPagar')">Cuentas por pagar</button>
+      <button data-page="comisiones" onclick="showPage('comisiones')">Comisiones</button>
+      <button data-page="notificaciones" onclick="showPage('notificaciones')">Notificaciones</button>
+      <button data-page="garantias" onclick="showPage('garantias')">Garantías</button>
+      <button data-page="evidencias" onclick="showPage('evidencias')">Fotos / Evidencias</button>
+      <button data-page="caja" onclick="showPage('caja')">Cierre de caja</button>
+      <button data-page="cobrar" onclick="showPage('cobrar')">Cuentas por cobrar</button>
+      <button data-page="vehiculos" onclick="showPage('vehiculos')">Vehículos / Placas</button>
+      <button data-page="reportes" onclick="showPage('reportes')">Reportes</button>
+      <button data-page="verificador" onclick="showPage('verificador')">Verificador precio</button>
+      <button data-page="fase13" onclick="showPage('fase13')">Fase 13 PRO</button>
+      <button data-page="config" onclick="showPage('config')">Configuración</button>
+      <button class="danger" onclick="logout()">Salir</button>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <h2 id="pageTitle">Panel de control</h2>
+          <span id="currentRole"></span>
+        </div>
+        <div class="rate-box">
+          <label>Tasa BCV</label>
+          <input id="bcvRate" type="number" step="0.01" onchange="saveRate()" />
+          <button onclick="mockAutoRate()">Actualizar automática</button><span id="syncStatus" class="sync-status">Local</span>
+        </div>
+      </header>
+
+      <section id="dashboard" class="page active">
+        <div class="cards">
+          <div class="card"><h3>Ingresos del día</h3><strong id="todayIncome">$0.00</strong><span id="todayIncomeBs">Bs 0.00</span></div>
+          <div class="card"><h3>Ventas</h3><strong id="salesCount">0</strong><span>Facturas registradas</span></div>
+          <div class="card"><h3>Clientes</h3><strong id="clientCount">0</strong><span>Registrados</span></div>
+          <div class="card"><h3>Stock bajo</h3><strong id="lowStock">0</strong><span>Productos por revisar</span></div>
+        </div>
+        <div class="grid2">
+          <div class="panel"><h3>Resumen de rendimiento</h3><canvas id="salesChart" height="160"></canvas></div>
+          <div class="panel"><h3>Acciones rápidas</h3><button onclick="showPage('pos')">Nueva venta</button><button onclick="showPage('inventario')">Crear producto</button><button onclick="showPage('taller')">Nueva orden de trabajo</button><button onclick="exportAll()">Exportar respaldo</button></div>
+        </div>
+      </section>
+
+      <section id="pos" class="page">
+        <div class="grid2">
+          <div class="panel"><h3>Productos</h3><input id="searchProduct" placeholder="Buscar producto" oninput="renderProductsPOS()"/><div id="posProducts" class="product-list"></div></div>
+          <div class="panel"><h3>Factura actual</h3>
+            <div class="client-box">
+              <h4>Cliente de la factura</h4>
+              <div class="toolbar"><button onclick="openPOSClientModal()">Seleccionar / crear cliente</button><button class="outline" onclick="clearPOSClient()">Cliente general</button></div>
+              <input id="posClientId" type="hidden"/>
+              <input id="posClient" list="clientDatalist" placeholder="Cliente" oninput="selectPOSClientByName()"/>
+              <datalist id="clientDatalist"></datalist>
+              <div id="posClientSummary" class="note">Ningún cliente seleccionado.</div>
+            </div>
+            <div class="price-mode-box">
+              <h4>Tipo de precio de la factura</h4>
+              <select id="salePriceMode" onchange="changeSalePriceMode()">
+                <option value="venta">Venta normal</option>
+                <option value="divisa_costo">Divisa al costo / precio costo</option>
+                <option value="mayorista">Mayorista / precio especial</option>
+                <option value="manual">Precio manual por producto</option>
+              </select>
+              <div id="salePriceModeNote" class="note">Venta normal: usa el precio de venta del producto.</div>
+            </div><div id="cart"></div><h3 id="cartTotal">Total: $0.00 / Bs 0.00</h3><div class="pay-grid"><input id="payCashUsd" type="number" placeholder="Dólares físico"/><input id="payCashBs" type="number" placeholder="Bolívares efectivo"/><input id="payCard" type="number" placeholder="Tarjeta"/><input id="payMobile" type="number" placeholder="Pago móvil"/><input id="payBinance" type="number" placeholder="Binance"/><input id="payZelle" type="number" placeholder="Zelle"/></div><button onclick="openPaymentModal()">Finalizar / cobrar</button></div>
+        </div>
+      </section>
+
+      <section id="facturas" class="page">
+        <div class="panel"><h3>Lista de facturación</h3><div class="toolbar"><input id="taxRate" type="number" placeholder="Impuesto %" onchange="saveTax()"/><button onclick="printInvoices()">Imprimir listado</button><button onclick="exportInvoicesCSV()">Exportar Excel CSV</button></div><div id="invoiceList"></div></div>
+      </section>
+
+
+      <section id="miHistorial" class="page">
+        <div class="panel">
+          <h3>Mi historial de ventas</h3>
+          <p class="note">Cada vendedor ve solo sus propias facturas, clientes atendidos y pagos recibidos. El administrador puede ver el resumen de todos.</p>
+          <div id="sellerSummaryCards" class="cards"></div>
+          <div id="sellerHistoryList"></div>
+        </div>
+      </section>
+
+      <section id="inventario" class="page">
+        <div class="grid2">
+          <div class="panel"><h3>Crear / editar producto</h3><input id="prodId" type="hidden"/><input id="prodName" placeholder="Nombre del producto"/><input id="prodCode" placeholder="Código / SKU"/><input id="prodCategory" placeholder="Categoría"/><input id="prodBrand" placeholder="Marca"/><input id="prodSupplier" placeholder="Proveedor"/><input id="prodLocation" placeholder="Ubicación / almacén"/><input id="prodCost" type="number" placeholder="Costo $ / precio divisa al costo"/><input id="prodPrice" type="number" placeholder="Precio venta $"/><input id="prodWholesale" type="number" placeholder="Precio mayorista $ opcional"/><input id="prodStock" type="number" placeholder="Stock"/><input id="prodMin" type="number" placeholder="Stock mínimo"/><input id="prodImg" type="file" accept="image/*"/><button onclick="saveProduct()">Guardar producto</button><button onclick="clearProductForm()" class="outline">Limpiar</button></div>
+          <div class="panel"><h3>Ajustes rápidos</h3><input id="pricePercent" type="number" placeholder="Aumentar precios %"/><button onclick="massPriceUpdate()">Modificar precios masivamente</button><input id="importFile" type="file" accept=".csv"/><button onclick="importProductsCSV()">Importar productos CSV</button><button onclick="exportProductsCSV()">Exportar Excel CSV</button><button onclick="window.print()">Imprimir listado</button></div>
+        </div>
+        <div class="panel"><h3>Productos registrados</h3><div id="productTable"></div></div>
+      </section>
+
+      <section id="taller" class="page">
+        <div class="grid2">
+          <div class="panel"><h3>Orden de trabajo</h3><input id="woId" type="hidden"/><input id="woClientId" type="hidden"/><input id="woClient" list="clientDatalist" placeholder="Cliente existente o nuevo" oninput="fillClientFromName()"/><input id="woPhone" placeholder="Teléfono"/><input id="woVehicle" placeholder="Vehículo / placa"/><input id="woCode" placeholder="Código para cliente"/><input id="woReceived" type="date"/><select id="woType"><option>Reparación mecánica</option><option>Aire acondicionado</option><option>Latonería y pintura</option><option>Rectificación</option><option>Motor</option><option>Electricidad</option><option>Otro</option></select><select id="woStatus"><option>Recibido</option><option>Diagnóstico</option><option>En reparación</option><option>En pintura</option><option>Rectificación</option><option>Motor</option><option>Listo</option><option>Entregado</option></select><textarea id="woNotes" placeholder="Proceso, repuestos, observaciones"></textarea><button onclick="saveWorkOrder()">Guardar / actualizar orden</button><button class="outline" onclick="clearWorkOrderForm()">Nueva orden limpia</button></div>
+          <div class="panel"><h3>Consulta de cliente</h3><p>El cliente entra por el botón “Cliente” y coloca su código para ver el proceso sin entrar al administrador.</p><button onclick="openClientPortal()">Abrir portal cliente</button></div>
+        </div>
+        <div class="panel"><h3>Órdenes registradas</h3><div id="workOrders"></div></div>
+      </section>
+
+      <section id="clientes" class="page"><div class="grid2"><div class="panel"><h3>Crear / editar cliente</h3><input id="crmId" type="hidden"/><input id="crmName" placeholder="Nombre cliente"/><input id="crmPhone" placeholder="Teléfono"/><input id="crmDocument" placeholder="Cédula / RIF"/><input id="crmAddress" placeholder="Dirección"/><input id="crmVehicle" placeholder="Vehículo / placa"/><textarea id="crmNotes" placeholder="Interacciones, ventas antiguas, seguimiento"></textarea><button onclick="saveClient()">Guardar cliente</button><button class="outline" onclick="clearClientForm()">Limpiar</button></div><div class="panel"><h3>Historial del cliente</h3><p>Al editar o abrir un cliente aquí verás sus compras y órdenes de taller.</p><div id="clientHistory"></div></div></div><div class="panel"><h3>Clientes guardados</h3><input id="clientSearch" placeholder="Buscar cliente" oninput="renderClients()"/><div id="clientList"></div></div></section>
+      <section id="contabilidad" class="page"><div class="panel"><h3>Registros financieros, libros y gastos</h3><input id="accDesc" placeholder="Descripción"/><select id="accType"><option value="ingreso">Ingreso</option><option value="gasto">Gasto</option></select><input id="accAmount" type="number" placeholder="Monto $"/><button onclick="saveAccounting()">Guardar registro</button><div id="accountingList"></div></div></section>
+
+
+      <section id="compras" class="page">
+        <div class="grid2">
+          <div class="panel">
+            <h3>Orden de compra / proveedor</h3>
+            <input id="poId" type="hidden" />
+            <input id="poSupplier" placeholder="Proveedor" />
+            <input id="poPhone" placeholder="Teléfono proveedor" />
+            <input id="poInvoice" placeholder="Factura / referencia del proveedor" />
+            <input id="poDate" type="date" />
+            <select id="poStatus"><option>Pendiente</option><option>Recibido parcial</option><option>Recibido completo</option><option>Pagado</option><option>Anulado</option></select>
+            <div class="grid2 compact-grid">
+              <input id="poProduct" placeholder="Producto / repuesto" />
+              <input id="poCode" placeholder="Código / SKU" />
+              <input id="poQty" type="number" placeholder="Cantidad" />
+              <input id="poCost" type="number" placeholder="Costo unitario $" />
+            </div>
+            <textarea id="poNotes" placeholder="Observaciones de compra"></textarea>
+            <button onclick="savePurchaseF12()">Guardar compra y actualizar stock</button>
+            <button class="outline" onclick="clearPurchaseFormF12()">Limpiar</button>
+          </div>
+          <div class="panel">
+            <h3>Proveedores</h3>
+            <input id="supName" placeholder="Nombre proveedor" />
+            <input id="supPhone" placeholder="Teléfono" />
+            <input id="supRif" placeholder="RIF / documento" />
+            <input id="supAddress" placeholder="Dirección" />
+            <textarea id="supNotes" placeholder="Notas, contacto, condiciones de pago"></textarea>
+            <button onclick="saveSupplierF12()">Guardar proveedor</button>
+            <button onclick="exportPurchasesCSVF12()" class="outline">Exportar compras CSV</button>
+            <div id="supplierList"></div>
+          </div>
+        </div>
+        <div class="panel"><h3>Historial de compras</h3><div id="purchaseList"></div></div>
+      </section>
+
+      <section id="garantias" class="page">
+        <div class="grid2">
+          <div class="panel">
+            <h3>Crear garantía / postventa</h3>
+            <input id="warId" type="hidden" />
+            <input id="warClient" placeholder="Cliente" />
+            <input id="warVehicle" placeholder="Vehículo / placa" />
+            <input id="warInvoice" placeholder="Factura / orden relacionada" />
+            <select id="warType"><option>Reparación</option><option>Repuesto</option><option>Pintura</option><option>Motor</option><option>Aire acondicionado</option><option>Otro</option></select>
+            <input id="warStart" type="date" />
+            <input id="warEnd" type="date" />
+            <select id="warStatus"><option>Activa</option><option>Reclamo recibido</option><option>En revisión</option><option>Resuelta</option><option>Vencida</option></select>
+            <textarea id="warNotes" placeholder="Condiciones de garantía, reclamo o solución"></textarea>
+            <button onclick="saveWarrantyF12()">Guardar garantía</button>
+            <button class="outline" onclick="clearWarrantyFormF12()">Limpiar</button>
+          </div>
+          <div class="panel">
+            <h3>Resumen postventa</h3>
+            <div id="warrantySummary"></div>
+          </div>
+        </div>
+        <div class="panel"><h3>Garantías registradas</h3><div id="warrantyList"></div></div>
+      </section>
+
+      <section id="evidencias" class="page">
+        <div class="grid2">
+          <div class="panel">
+            <h3>Fotos y evidencias del proceso</h3>
+            <input id="evOrder" placeholder="Código de orden / factura" />
+            <input id="evClient" placeholder="Cliente" />
+            <input id="evVehicle" placeholder="Vehículo / placa" />
+            <select id="evStage"><option>Antes</option><option>Diagnóstico</option><option>Proceso</option><option>Después</option><option>Entrega</option><option>Garantía</option></select>
+            <input id="evFile" type="file" accept="image/*" />
+            <textarea id="evNotes" placeholder="Descripción de la evidencia"></textarea>
+            <button onclick="saveEvidenceF12()">Guardar evidencia</button>
+            <button class="outline" onclick="clearEvidenceFormF12()">Limpiar</button>
+          </div>
+          <div class="panel">
+            <h3>Buscar evidencias</h3>
+            <input id="evSearch" placeholder="Buscar por código, cliente, placa o etapa" oninput="renderEvidenceF12()" />
+            <p class="note">Las fotos quedan vinculadas a la orden para que el cliente pueda ver el avance con su código.</p>
+          </div>
+        </div>
+        <div class="panel"><h3>Galería de evidencias</h3><div id="evidenceList"></div></div>
+      </section>
+
+      <section id="caja" class="page">
+        <div class="panel"><h3>Cierre de caja diario</h3><div class="toolbar"><input id="cashDate" type="date" onchange="renderCashCloseF11()"/><select id="cashUserFilter" onchange="renderCashCloseF11()"></select><button onclick="saveCashCloseF11()">Guardar cierre</button><button class="outline" onclick="exportCashCloseCSVF11()">Exportar cierres</button></div><div id="cashCloseSummary" class="cards"></div><div id="cashCloseList"></div></div>
+      </section>
+
+      <section id="cobrar" class="page">
+        <div class="grid2"><div class="panel"><h3>Cuentas por cobrar / abonos</h3><input id="arId" type="hidden"/><input id="arClient" placeholder="Cliente"/><input id="arInvoice" placeholder="Factura / referencia"/><input id="arAmount" type="number" placeholder="Monto total $"/><input id="arPaid" type="number" placeholder="Abono $"/><input id="arPayMethod" placeholder="Método de pago"/><input id="arRef" placeholder="Referencia"/><button onclick="saveAccountReceivableF11()">Guardar / abonar</button><button class="outline" onclick="clearARFormF11()">Limpiar</button></div><div class="panel"><h3>Resumen</h3><div id="arSummary" class="cards"></div></div></div><div class="panel"><h3>Deudas registradas</h3><div id="arList"></div></div>
+      </section>
+
+      <section id="vehiculos" class="page">
+        <div class="grid2"><div class="panel"><h3>Vehículo / placa</h3><input id="vehId" type="hidden"/><input id="vehPlate" placeholder="Placa"/><input id="vehClient" placeholder="Cliente"/><input id="vehBrand" placeholder="Marca"/><input id="vehModel" placeholder="Modelo"/><input id="vehYear" placeholder="Año"/><input id="vehColor" placeholder="Color"/><textarea id="vehNotes" placeholder="Notas del vehículo"></textarea><button onclick="saveVehicleF11()">Guardar vehículo</button><button class="outline" onclick="clearVehicleFormF11()">Limpiar</button></div><div class="panel"><h3>Historial por placa</h3><div id="vehicleHistoryBox"></div></div></div><div class="panel"><h3>Vehículos registrados</h3><input id="vehSearch" placeholder="Buscar placa, cliente o modelo" oninput="renderVehiclesF11()"/><div id="vehicleList"></div></div>
+      </section>
+
+      <section id="reportes" class="page"><div class="panel"><h3>Reportes</h3><button onclick="renderReports()">Actualizar reportes</button><button onclick="exportAll()">Exportar respaldo JSON</button><pre id="reportsBox"></pre></div></section>
+      <section id="verificador" class="page"><div class="panel verifier"><h3>Terminal de verificación de precios</h3><input id="verifyCode" placeholder="Escanea o escribe código" oninput="verifyPrice()"/><div id="verifyResult"></div></div></section>
+
+      <section id="fase13" class="page">
+        <div class="grid2">
+          <div class="panel">
+            <h3>Respaldo automático y restauración</h3>
+            <p class="note">Crea copias de seguridad del sistema. Puedes descargarlas o restaurarlas cuando cambies de computadora.</p>
+            <div class="toolbar">
+              <button onclick="createLocalBackup()">Crear respaldo interno</button>
+              <button onclick="downloadFullBackup()">Descargar respaldo JSON</button>
+              <button onclick="exportAllCSVZipLite()">Exportar tablas CSV</button>
+            </div>
+            <input id="restoreFile" type="file" accept=".json" />
+            <button class="outline" onclick="restoreBackupFile()">Restaurar respaldo JSON</button>
+            <div id="backupList" class="mini-list"></div>
+          </div>
+
+          <div class="panel">
+            <h3>Importación masiva de productos</h3>
+            <p class="note">Descarga la plantilla, llena productos en Excel y vuelve a importarla en CSV.</p>
+            <div class="toolbar">
+              <button onclick="downloadProductTemplate()">Descargar plantilla CSV</button>
+              <button onclick="exportProductsCSV()">Exportar productos</button>
+            </div>
+            <input id="bulkImportFile" type="file" accept=".csv" />
+            <button onclick="bulkImportProductsPro()">Importar productos masivo</button>
+            <div id="bulkImportResult" class="note"></div>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="panel">
+            <h3>Factura térmica 80mm</h3>
+            <p class="note">Imprime ticket corto para impresora térmica. La factura del cliente no muestra costos ni ganancias.</p>
+            <input id="thermalInvoiceId" placeholder="Número de factura o deja vacío para la última" />
+            <div class="toolbar">
+              <button onclick="printThermalInvoice()">Imprimir ticket 80mm</button>
+              <button class="outline" onclick="previewThermalInvoice()">Vista previa</button>
+            </div>
+            <div id="thermalPreview" class="thermal-preview"></div>
+          </div>
+
+          <div class="panel">
+            <h3>Códigos de barra y etiquetas</h3>
+            <p class="note">Genera etiquetas para productos con código, nombre, precio USD/Bs y ubicación.</p>
+            <select id="labelProductSelect"></select>
+            <div class="toolbar">
+              <button onclick="printSelectedLabel()">Imprimir etiqueta</button>
+              <button onclick="printAllLabels()">Imprimir todas</button>
+            </div>
+            <div id="labelPreview" class="label-preview"></div>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="panel">
+            <h3>Escáner de código con cámara</h3>
+            <p class="note">Funciona en celulares compatibles. Si el navegador no permite cámara, usa la búsqueda manual.</p>
+            <div class="toolbar">
+              <button onclick="startBarcodeScanner()">Activar cámara</button>
+              <button class="outline" onclick="stopBarcodeScanner()">Detener</button>
+            </div>
+            <video id="scannerVideo" class="scanner-video" autoplay muted playsinline></video>
+            <input id="manualScanCode" placeholder="Código manual" />
+            <button onclick="findProductByScan()">Buscar código</button>
+            <div id="scannerResult" class="product-item"></div>
+          </div>
+
+          <div class="panel">
+            <h3>Herramientas de producción</h3>
+            <button onclick="printLowStockReport()">Imprimir productos con stock bajo</button>
+            <button onclick="downloadInventoryValuation()">Valorizar inventario</button>
+            <button onclick="clearOldScannerResult()" class="outline">Limpiar escáner</button>
+            <p class="note">Recomendado antes de montar en GitHub/Firebase: hacer respaldo, exportar productos y probar una factura térmica.</p>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="roles" class="page">
+        <div class="panel">
+          <h3>Roles y permisos del sistema</h3>
+          <p class="note">Cada usuario ve solamente las herramientas que le corresponden. El administrador puede activar o quitar módulos por rol desde aquí.</p>
+          <div id="roleEditorBox"></div>
+          <div id="rolePermissionsBox" class="cards"></div>
+        </div>
+      </section>
+
+
+
+      <section id="cuentasPagar" class="page">
+        <div class="panel">
+          <h3>Cuentas por pagar a proveedores</h3>
+          <p class="note">Controla deudas, abonos y saldos pendientes de compras a proveedores.</p>
+          <div class="grid2 compact-grid">
+            <input id="apSupplier" placeholder="Proveedor" />
+            <input id="apInvoice" placeholder="Factura / Referencia" />
+            <input id="apAmount" type="number" placeholder="Monto total $" />
+            <input id="apPaid" type="number" placeholder="Abono inicial $" />
+            <input id="apDue" type="date" />
+            <select id="apStatus"><option value="pendiente">Pendiente</option><option value="parcial">Parcial</option><option value="pagada">Pagada</option></select>
+          </div>
+          <textarea id="apNotes" placeholder="Notas de la cuenta por pagar"></textarea>
+          <button onclick="savePayableF16()">Guardar cuenta por pagar</button>
+          <button class="outline" onclick="exportPayablesF16()">Exportar cuentas por pagar</button>
+          <div id="payablesList"></div>
+        </div>
+      </section>
+
+      <section id="comisiones" class="page">
+        <div class="panel">
+          <h3>Comisiones y metas por vendedor</h3>
+          <p class="note">El vendedor solo ve sus comisiones. El administrador ve todos los vendedores.</p>
+          <div class="grid2 compact-grid">
+            <input id="commissionSeller" placeholder="Usuario vendedor" />
+            <input id="commissionPercent" type="number" placeholder="% comisión" />
+            <input id="commissionGoal" type="number" placeholder="Meta mensual $" />
+            <button onclick="saveCommissionRuleF17()">Guardar regla</button>
+          </div>
+          <button class="outline" onclick="exportCommissionsF17()">Exportar comisiones</button>
+          <div id="commissionsBox"></div>
+        </div>
+      </section>
+
+      <section id="notificaciones" class="page">
+        <div class="panel">
+          <h3>Centro de notificaciones</h3>
+          <p class="note">Recordatorios internos para cliente, stock bajo, cuentas por cobrar/pagar y trabajos listos.</p>
+          <div class="grid2 compact-grid">
+            <select id="notifType"><option value="cliente">Cliente</option><option value="stock">Stock bajo</option><option value="cobrar">Cuenta por cobrar</option><option value="pagar">Cuenta por pagar</option><option value="taller">Taller</option></select>
+            <input id="notifTo" placeholder="Para / teléfono / usuario" />
+          </div>
+          <textarea id="notifMsg" placeholder="Mensaje de notificación"></textarea>
+          <button onclick="saveNotificationF18()">Guardar notificación</button>
+          <button class="outline" onclick="generateAutoNotificationsF18()">Generar avisos automáticos</button>
+          <button class="outline" onclick="exportNotificationsF18()">Exportar notificaciones</button>
+          <div id="notificationsList"></div>
+        </div>
+      </section>
+
+      <section id="config" class="page"><div class="panel"><h3>Configuración empresa</h3><input id="companyName" placeholder="Nombre empresa"/><input id="companyRif" placeholder="RIF"/><input id="companyAddress" placeholder="Dirección"/><input id="companyPhone" placeholder="Teléfono"/><textarea id="firebaseConfig" placeholder="Pega aquí el bloque const firebaseConfig = { ... }. Si Firebase no muestra databaseURL, el sistema la agrega automáticamente."></textarea><button onclick="saveConfig()">Guardar configuración</button><button onclick="connectFirebase()">Conectar Firebase</button><button onclick="pushLocalToFirebase()">Subir datos locales a Firebase</button><button onclick="pullFirebaseOnce()">Bajar datos de Firebase</button><p id="firebaseMsg" class="note">Fase 18.8.1: conexión con Firebase Realtime Database. Pega el firebaseConfig completo, guarda y conecta. Si Firebase no trae databaseURL, se agrega automáticamente.</p>
+        <hr><h3>Usuarios y permisos</h3>
+        <div class="grid2 compact-grid">
+          <input id="newUserName" placeholder="Usuario"/>
+          <input id="newUserPass" placeholder="Contraseña"/>
+          <select id="newUserRole"><option value="admin">Administrador</option><option value="vendedor">Vendedor</option><option value="almacen">Almacén</option><option value="taller">Mecánico / Taller</option><option value="pintor">Pintor</option></select>
+          <button onclick="saveSystemUser()">Guardar usuario</button>
+        </div>
+        <div id="usersList"></div>
+        <hr><h3>Seguridad, respaldo y entrega</h3>
+        <div class="backup-panel-187">
+          <p class="note"><b>Antes de entregar el sistema:</b> crea un respaldo y luego usa “Restaurar para entrega”. Solo el administrador puede limpiar información.</p>
+          <div class="backup-actions-187">
+            <button onclick="createBackup187()">Crear respaldo completo</button>
+            <label class="import-label-187">Importar respaldo
+              <input id="backupImport187" type="file" accept="application/json,.json" onchange="importBackup187(event)" />
+            </label>
+            <button class="danger" onclick="restoreForDelivery187()">Restaurar sistema para entrega</button>
+          </div>
+          <div class="restore-options-187">
+            <label><input type="checkbox" id="keepProducts187" checked /> Mantener productos e inventario</label>
+            <label><input type="checkbox" id="keepConfig187" checked /> Mantener empresa, logo, BCV y Firebase</label>
+            <label><input type="checkbox" id="keepUsers187" checked /> Mantener usuarios y permisos</label>
+          </div>
+          <div id="backupStatus187" class="note">Listo para respaldar o preparar el sistema para entrega.</div>
+        </div>
+        <hr><h3>Auditoría del sistema</h3>
+        <button onclick="renderAudit()">Actualizar auditoría</button>
+        <div id="auditList"></div>
+      </div></section>
+    </main>
+  </div>
+
+  <div id="clientPortal" class="modal hidden"><div class="modal-card"><img src="./assets/logo.jpg" class="logo"/><h2>Consulta de trabajo</h2><p>Coloca el código entregado por el taller para acompañar el proceso.</p><input id="clientCodeInput" placeholder="Ejemplo: JM-12345"/><button onclick="clientCheck()">Consultar</button><button class="outline" onclick="closeClientPortal()">Cerrar</button><div id="clientResult"></div></div></div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="app.js"></script>
+
+  <div id="posClientModal" class="modal hidden">
+    <div class="modal-card wide-modal">
+      <h2>Cliente para punto de venta</h2>
+      <p>Selecciona un cliente existente o crea uno nuevo antes de facturar.</p>
+      <input id="posClientSearch" placeholder="Buscar por nombre, apellido, RIF/CI o teléfono" oninput="renderPOSClientPicker()"/>
+      <div id="posClientPicker" class="picker-list"></div>
+      <hr>
+      <h3>Crear / editar cliente</h3>
+      <input id="posFormClientId" type="hidden"/>
+      <div class="grid2 compact-grid">
+        <input id="posFormName" placeholder="Nombre"/>
+        <input id="posFormLastName" placeholder="Apellido"/>
+      </div>
+      <input id="posFormDocument" placeholder="RIF / CI corta"/>
+      <input id="posFormPhone" placeholder="Teléfono"/>
+      <input id="posFormAddress" placeholder="Dirección"/>
+      <textarea id="posFormNotes" placeholder="Observaciones del cliente"></textarea>
+      <button onclick="savePOSClientAndSelect()">Guardar y seleccionar cliente</button>
+      <button class="outline" onclick="closePOSClientModal()">Cerrar</button>
+    </div>
+  </div>
+
+
+  <div id="paymentModal" class="modal hidden">
+    <div class="modal-card payment-modal-card">
+      <div class="modal-head">
+        <h2>Finalizar factura</h2>
+        <span class="rate-pill">Tasa: Bs. <b id="payModalRate">0.00</b></span>
+      </div>
+      <div class="pay-tabs"><button id="tabSimple" class="active" onclick="setPayMode('simple')">Simple</button><button id="tabMultiple" onclick="setPayMode('multiple')">Múltiples pagos</button></div>
+      <div class="delivery-line"><b>Delivery / cargos extra</b><button class="outline" onclick="toggleDeliveryBox()">+ Delivery</button></div>
+      <div id="deliveryBox" class="hidden compact-pay-grid"><input id="deliveryAmount" type="number" placeholder="Monto delivery $" oninput="recalcPaymentModal()"><input id="deliveryNote" placeholder="Nota del delivery / cargo extra"></div>
+      <div class="payment-summary">
+        <div><small>TOTAL VENTA</small><strong id="payTotalBs">Bs. 0.00</strong><span id="payTotalUsd">$0.00</span></div>
+        <div><small>PAGADO</small><strong id="payPaidBs">Bs. 0.00</strong><span id="payPaidUsd">$0.00</span></div>
+        <div><small>CAMBIO</small><strong id="payChangeBs">Bs. 0.00</strong><span id="payChangeUsd">$0.00</span></div>
+      </div>
+      <h3>Método de pago</h3>
+      <div class="payment-method-grid">
+        <button onclick="selectPaymentMethod('binance','USD')">Binance USDT<br><small>(USD)</small></button>
+        <button onclick="selectPaymentMethod('cuenta','USD')">Cuenta por Cobrar<br><small>(USD)</small></button>
+        <button onclick="selectPaymentMethod('efectivo_usd','USD')">Efectivo $<br><small>(USD)</small></button>
+        <button onclick="selectPaymentMethod('efectivo_bs','VES')">Efectivo Bs<br><small>(VES)</small></button>
+        <button onclick="selectPaymentMethod('efectivo_eur','EUR')">Efectivo Euros<br><small>(EUR)</small></button>
+        <button onclick="selectPaymentMethod('pago_movil','VES')">Pago Móvil<br><small>(VES)</small></button>
+        <button onclick="selectPaymentMethod('pos_banesco','VES')">PosVenta Banesco<br><small>(VES)</small></button>
+        <button onclick="selectPaymentMethod('zelle','USD')">Zelle<br><small>(USD)</small></button>
+        <button onclick="selectPaymentMethod('tarjeta','VES')">Tarjeta<br><small>(VES)</small></button>
+        <button onclick="selectPaymentMethod('transferencia','VES')">Transferencia<br><small>(VES)</small></button>
+      </div>
+      <div class="selected-pay"><b>Método seleccionado:</b> <span id="selectedPayLabel">Pago Móvil</span></div>
+      <div class="compact-pay-grid"><input id="payAmountInput" type="number" placeholder="Monto recibido" oninput="recalcPaymentModal()"><input id="payReferenceInput" placeholder="Referencia / celular"></div>
+      <textarea id="payNoteInput" placeholder="Notas adicionales..."></textarea>
+      <div class="toolbar"><button onclick="addPaymentLine()">Agregar / editar pago</button><button class="outline" onclick="clearPaymentDraft()">Limpiar pago</button></div>
+      <div id="paymentLines"></div>
+      <div class="modal-actions"><button class="danger" onclick="closePaymentModal()">Cancelar</button><button onclick="completeSaleFromModal()">Completar venta</button></div>
+    </div>
+  </div>
+
+<script>document.addEventListener("DOMContentLoaded",()=>{document.body.classList.add("loaded-186")});</script>
+</body>
+</html>
