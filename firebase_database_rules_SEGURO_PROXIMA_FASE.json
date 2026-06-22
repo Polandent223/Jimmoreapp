@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "jimmoreDB": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    }
+  }
+}
